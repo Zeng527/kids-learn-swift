@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>海底世界大冒險｜深海序章</title>
+<style>
+:root{--gold:#ffe9a6;--cyan:#76f5ef;--deep:#020914}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);color:var(--gold);font-family:Georgia,"Noto Serif TC","Songti TC",serif}
+body{isolation:isolate}
+.ocean{position:fixed;inset:0;overflow:hidden;background:radial-gradient(ellipse at 50% 115%,#075f79 0%,#06344f 31%,#04172c 62%,#01050d 100%);z-index:-3}
+.ocean:before{content:"";position:absolute;inset:-20%;background:conic-gradient(from 240deg at 50% -10%,transparent 0deg,#7cf5ef12 18deg,transparent 36deg,#6be8ff0d 56deg,transparent 78deg);filter:blur(12px);animation:current 16s linear infinite}
+.ocean:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#01040bc9 0%,transparent 38%,#031b2b55 65%,#020814 100%)}
+@keyframes current{to{transform:rotate(360deg)}}
+.stars{position:absolute;inset:0;background-image:radial-gradient(2px 2px at 13% 18%,#d9ffffaa 50%,transparent 100%),radial-gradient(1px 1px at 22% 37%,#fff 50%,transparent 100%),radial-gradient(2px 2px at 79% 23%,#8dfaff 50%,transparent 100%),radial-gradient(1px 1px at 65% 11%,#fff 50%,transparent 100%),radial-gradient(1px 1px at 91% 48%,#b6ffff 50%,transparent 100%),radial-gradient(2px 2px at 37% 9%,#fff 50%,transparent 100%),radial-gradient(1px 1px at 48% 42%,#fff 50%,transparent 100%);opacity:.75;animation:twinkle 4s ease-in-out infinite alternate}
+@keyframes twinkle{to{opacity:.3;transform:translateY(-8px)}}
+.light{position:absolute;top:-25%;left:50%;width:70vw;height:90vh;transform:translateX(-50%);background:linear-gradient(180deg,#b7ffff1a,transparent 80%);clip-path:polygon(40% 0,60% 0,100% 100%,0 100%);filter:blur(10px)}
+.ruins{position:absolute;bottom:-2%;left:0;right:0;height:30%;opacity:.7;background:linear-gradient(0deg,#010610 0 14%,transparent 14%),linear-gradient(90deg,transparent 0 5%,#061c2d 5% 8%,transparent 8% 14%,#08273b 14% 19%,transparent 19% 28%,#061a2c 28% 34%,transparent 34% 43%,#08283a 43% 47%,transparent 47% 57%,#061a2c 57% 62%,transparent 62% 73%,#08283a 73% 80%,transparent 80% 88%,#061a2c 88% 92%,transparent 92%);clip-path:polygon(0 45%,7% 45%,7% 25%,12% 25%,12% 60%,18% 60%,18% 15%,25% 15%,25% 65%,33% 65%,33% 35%,39% 35%,39% 50%,45% 50%,45% 5%,53% 5%,53% 53%,62% 53%,62% 28%,69% 28%,69% 62%,77% 62%,77% 20%,83% 20%,83% 55%,91% 55%,91% 35%,100% 35%,100% 100%,0 100%);filter:drop-shadow(0 0 15px #22d7ec22)}
+.fish{position:absolute;font-size:clamp(18px,3vw,35px);opacity:.35;filter:drop-shadow(0 0 12px #77f8ff);animation:swim 18s linear infinite}
+.fish.one{top:28%;left:-10%;animation-duration:23s}.fish.two{top:48%;right:-8%;animation:swimback 27s linear infinite;font-size:24px}.fish.three{top:18%;left:-10%;animation-duration:31s;font-size:18px}
+@keyframes swim{to{transform:translateX(120vw) translateY(-35px)}}@keyframes swimback{to{transform:translateX(-120vw) translateY(30px)}}
+.bubbles{position:absolute;inset:0;overflow:hidden}
+.bubble{position:absolute;bottom:-70px;border:1px solid #a6ffff65;border-radius:50%;background:radial-gradient(circle at 30% 25%,#dfffff40,transparent 55%);animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-120vh) translateX(22px);opacity:0}}
+.vignette{position:fixed;inset:0;z-index:4;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,#000b 100%)}
+.topmark{position:fixed;top:24px;left:50%;transform:translateX(-50%);font-family:system-ui,sans-serif;letter-spacing:.35em;font-size:.65rem;color:#9debf0a8;text-transform:uppercase;white-space:nowrap;z-index:5}
+.corner{position:fixed;z-index:5;bottom:23px;left:24px;font:700 .65rem/1.7 system-ui,sans-serif;letter-spacing:.16em;color:#9debf077}
+.sound{position:fixed;z-index:5;bottom:20px;right:22px;background:#041624a8;color:#c9ffff;border:1px solid #5de5e54f;border-radius:999px;padding:10px 14px;font:700 .72rem system-ui,sans-serif;letter-spacing:.08em;cursor:pointer}
+.sound:hover{background:#0c3348}
+.intro{position:absolute;z-index:2;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px;transition:opacity 1.5s ease}
+.intro.hide{opacity:0;pointer-events:none}
+.intro-inner{max-width:800px;transform:translateY(-2vh);animation:appear 2s ease both}
+@keyframes appear{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(-2vh)}}
+.eyebrow{font:700 .7rem system-ui,sans-serif;letter-spacing:.5em;color:var(--cyan);margin-bottom:28px;text-shadow:0 0 16px #76f5ef88}
+h1{margin:0;color:#fff3c8;font-weight:500;font-size:clamp(2.6rem,8vw,6.8rem);line-height:1.12;letter-spacing:.12em;text-shadow:0 0 12px #fff1b955,0 0 42px #37eaff4f}
+.subtitle{font:500 clamp(.72rem,1.6vw,1rem) system-ui,sans-serif;letter-spacing:.34em;color:#a8eaf0;margin-top:25px}
+.rule{width:90px;height:1px;margin:30px auto;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.start{border:1px solid #8df4ef;background:#061e2bb3;color:#e7ffff;border-radius:2px;padding:14px 24px;font:700 .78rem system-ui,sans-serif;letter-spacing:.22em;cursor:pointer;box-shadow:0 0 24px #34e6ef20;transition:.25s}
+.start:hover{background:#0c3949;box-shadow:0 0 30px #34e6ef60;transform:translateY(-2px)}
+.hint{font:500 .68rem system-ui,sans-serif;color:#9bd7dc88;letter-spacing:.1em;margin-top:15px}
+.crawl-scene{position:absolute;z-index:3;inset:0;perspective:360px;overflow:hidden;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
+.crawl-scene.active{opacity:1}
+.crawl{position:absolute;top:100%;left:50%;width:min(76vw,780px);transform:translateX(-50%) rotateX(22deg);transform-origin:50% 0%;text-align:center;font-weight:600;font-size:clamp(1.25rem,3.2vw,2.6rem);line-height:1.75;letter-spacing:.1em;color:#ffe9a6;text-shadow:0 0 12px #ffdc7840;animation:crawl 45s linear forwards}
+.crawl .chapter{font-size:.72em;letter-spacing:.4em;margin-bottom:25px}
+.crawl h2{font-size:1.4em;font-weight:500;letter-spacing:.14em;line-height:1.5;margin:0 0 50px}
+.crawl p{margin:0 0 1.5em}
+@keyframes crawl{0%{top:100%;transform:translateX(-50%) rotateX(22deg) scale(1)}100%{top:-180%;transform:translateX(-50%) rotateX(22deg) scale(.55)}}
+.fade-top{position:absolute;z-index:3;top:0;left:0;right:0;height:30%;background:linear-gradient(#020914 0%,transparent 100%);pointer-events:none;opacity:0;transition:opacity 1s}
+.crawl-scene.active~.fade-top{opacity:1}
+.endcard{position:absolute;inset:0;z-index:3;display:grid;place-items:center;text-align:center;opacity:0;pointer-events:none;transition:opacity 2s;background:#010a12a0}
+.endcard.show{opacity:1;pointer-events:auto}
+.endcard h2{font-size:clamp(2rem,6vw,4.5rem);font-weight:500;letter-spacing:.12em;text-shadow:0 0 30px #5af9ff88;margin:0 0 12px}
+.endcard p{font:500 .85rem/1.8 system-ui,sans-serif;letter-spacing:.12em;color:#aeeff1;margin:0 0 28px}
+.end-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.end-actions button{font:700 .75rem system-ui,sans-serif;letter-spacing:.12em;padding:12px 17px;border:1px solid #85f2ef;background:#041e2b;color:#eaffff;cursor:pointer}
+.end-actions button:hover{background:#0d4050}
+.skip{position:fixed;z-index:6;top:22px;right:22px;border:1px solid #8deef04d;background:#041624a8;color:#bdfaff;padding:9px 12px;font:700 .68rem system-ui,sans-serif;letter-spacing:.1em;cursor:pointer;display:none}
+.skip.show{display:block}
+@media(max-width:600px){.topmark{font-size:.53rem;letter-spacing:.2em;top:17px}.corner{left:14px;bottom:13px;font-size:.55rem}.sound{right:12px;bottom:12px}.skip{top:13px;right:12px}.crawl{width:82vw;font-size:1.3rem;line-height:1.8}.intro-inner{transform:translateY(-1vh)}.eyebrow{letter-spacing:.25em}h1{letter-spacing:.06em}.subtitle{letter-spacing:.2em}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="ocean" aria-hidden="true">
+  <div class="stars"></div><div class="light"></div><div class="ruins"></div>
+  <span class="fish one">🐟</span><span class="fish two">🐠</span><span class="fish three">🪼</span>
+  <div class="bubbles" id="bubbles"></div>
+</div>
+<div class="topmark">OCEAN QUEST · DEEP SEA CHRONICLES</div>
+<div class="intro" id="intro">
+  <div class="intro-inner">
+    <div class="eyebrow">✦ 一場未知的深海旅程 ✦</div>
+    <h1>海底世界<br>大冒險</h1>
+    <div class="subtitle">THE GREAT OCEAN ADVENTURE</div>
+    <div class="rule"></div>
+    <button class="start" id="start">▶　開始探索</button>
+    <div class="hint">戴好潛水鏡，準備下潛</div>
+  </div>
+</div>
+<div class="crawl-scene" id="crawlScene" aria-hidden="true">
+  <div class="crawl" id="crawl">
+    <div class="chapter">第一章 · 深海的呼喚</div>
+    <h2>海底世界大冒險</h2>
+    <p>在蔚藍星球最深邃的海域，藏著一個從未被完全揭開的秘密。</p>
+    <p>古老的珊瑚城沉睡在海流之間，閃爍的微光指引著勇敢的探險者，游向未知的遠方。</p>
+    <p>傳說，一枚失落已久的星海之心，正等待著能聽見海洋聲音的人。</p>
+    <p>你將與海龜、海豚和神祕的深海朋友結伴，穿越流動的藍色森林，尋找散落的寶藏。</p>
+    <p>但真正的任務，不只是找到寶物——而是守護這片孕育無數生命的家園。</p>
+    <p>小小探險家，深海之門即將開啟。</p>
+    <p>你的故事，現在開始。</p>
+  </div>
+</div>
+<div class="fade-top"></div>
+<div class="endcard" id="endcard">
+  <div>
+    <div class="eyebrow">MISSION READY · DIVE IN</div>
+    <h2>深海探險，現在啟程</h2>
+    <p>探索海洋朋友 · 尋找神祕寶藏 · 成為海洋守護者</p>
+    <div class="end-actions">
+      <button id="explore">進入海底世界 ↗</button>
+      <button id="replay">重新播放序章 ↻</button>
+    </div>
+  </div>
+</div>
+<button class="skip" id="skip">跳過序章　»</button>
+<div class="corner">DEPTH UNKNOWN<br>MISSION 001 · OCEAN</div>
+<button class="sound" id="sound" aria-pressed="false">◌　環境音：關</button>
+<audio id="ambient" loop preload="none">
+  <!-- Optional ambient audio can be added here by setting a source. -->
+</audio>
+<script>
+const $=s=>document.querySelector(s);
+const intro=$('#intro'),crawlScene=$('#crawlScene'),endcard=$('#endcard'),skip=$('#skip');
+let timers=[],audioOn=false,oscillator=null,audioContext=null;
+function clearTimers(){timers.forEach(clearTimeout);timers=[]}
+function bubbles(){
+ const host=$('#bubbles');host.innerHTML='';
+ for(let i=0;i<32;i++){const b=document.createElement('i');b.className='bubble';const size=4+Math.random()*18;b.style.width=size+'px';b.style.height=size+'px';b.style.left=Math.random()*100+'%';b.style.animationDuration=(8+Math.random()*15)+'s';b.style.animationDelay=(-Math.random()*20)+'s';b.style.opacity=(.15+Math.random()*.55).toFixed(2);host.appendChild(b)}
+}
+function showEnd(){crawlScene.classList.remove('active');crawlScene.setAttribute('aria-hidden','true');skip.classList.remove('show');endcard.classList.add('show')}
+function startCrawl(){
+ clearTimers();endcard.classList.remove('show');intro.classList.add('hide');skip.classList.add('show');crawlScene.classList.add('active');crawlScene.setAttribute('aria-hidden','false');
+ const crawl=$('#crawl');crawl.style.animation='none';void crawl.offsetHeight;crawl.style.animation='crawl 45s linear forwards';
+ timers.push(setTimeout(showEnd,45000));
+}
+function replay(){clearTimers();endcard.classList.remove('show');crawlScene.classList.remove('active');crawlScene.setAttribute('aria-hidden','true');intro.classList.remove('hide');skip.classList.remove('show')}
+$('#start').addEventListener('click',startCrawl);skip.addEventListener('click',showEnd);$('#replay').addEventListener('click',replay);
+$('#explore').addEventListener('click',()=>{document.body.innerHTML=`<main style="min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px;background:radial-gradient(ellipse at bottom,#087fbe,#020914 70%);color:#eaffff;font-family:system-ui,sans-serif"><div><div style="font-size:5rem">🐳 🐢 🐠</div><h1 style="font-size:clamp(2rem,6vw,4rem)">歡迎來到海底世界！</h1><p style="line-height:1.9">你的冒險旅程正式開始。<br>準備好認識海洋朋友、尋找寶藏了嗎？</p><button onclick="location.reload()" style="padding:13px 20px;border:1px solid #85f2ef;background:#041e2b;color:#eaffff;cursor:pointer">重新觀看序章 ↻</button></div></main>`});
+$('#sound').addEventListener('click',async()=>{
+ const btn=$('#sound');
+ try{
+  if(!audioContext){audioContext=new (window.AudioContext||window.webkitAudioContext)();oscillator=audioContext.createOscillator();const gain=audioContext.createGain();const filter=audioContext.createBiquadFilter();oscillator.type='sine';oscillator.frequency.value=72;filter.type='lowpass';filter.frequency.value=140;gain.gain.value=0;oscillator.connect(filter);filter.connect(gain);gain.connect(audioContext.destination);oscillator.start();window.oceanGain=gain}
+  if(audioContext.state==='suspended')await audioContext.resume();
+  audioOn=!audioOn;window.oceanGain.gain.setTargetAtTime(audioOn?.018:0,audioContext.currentTime,.4);
+  btn.textContent=audioOn?'◉　環境音：開':'◌　環境音：關';btn.setAttribute('aria-pressed',String(audioOn));
+ }catch(e){btn.textContent='環境音暫不可用'}
+});
+bubbles();
+</script>
+</body>
+</html>
